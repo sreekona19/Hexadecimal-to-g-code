@@ -3,7 +3,7 @@ def process_line(line):
 
   hex_string = line.split(" ")[0]
   return extract_from_hex(hex_string)
-  
+
 def hex_to_gcode(hex_string):
     # Split the hex string into a list of two-character hex values
     hex_values = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
@@ -16,17 +16,12 @@ def hex_to_gcode(hex_string):
 def extract_from_hex(hex_string):
     # Find the index of "4e" in the hex string
     start_index = hex_string.find("4e")
-    
+
 
     # If "4e" is not found, return an empty string
     if start_index == -1:
-      start_index = hex_string.find("4d")
-      if start_index == -1:
-          start_index = hex_string.find("47")
-          if start_index == -1:
-            start_index = hex_string.find("30")
-            if start_index == -1:
-              start_index =  hex_string.find("31")
+      start_index = hex_string.rfind("00")
+      start_index += 2
 
     # Extract the substring starting from "4e"
     hex_substring = hex_string[start_index:]
