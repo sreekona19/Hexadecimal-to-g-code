@@ -1,0 +1,29 @@
+def process_line(line, file):
+    # Split the line at "N"
+    parts = line.split("N")
+
+    # Iterate over each part after the first
+    for part in parts[1:]:
+        # Find the index of "*"
+        end_index = part.find("*")
+
+        # If "*" is not found in the current part
+        if end_index == -1:
+            # Read the next line from the file
+            next_line = file.readline().strip()
+
+            # Combine the current part with the next line
+            part += next_line
+
+            # Find the index of "*" in the combined string
+            end_index = part.find("*")
+
+        # Print the part from the number following "N" to "*"
+        print(part[part.find(" ")+1:end_index])
+
+def read_file(filename):
+    with open(filename, 'r') as file:
+        for line in file:
+            process_line(line.strip(), file)
+
+read_file('output.txt')
